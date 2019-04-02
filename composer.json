@@ -10,6 +10,7 @@
         "dusterio/lumen-passport": "^0.2.9",
         "laravel/lumen-framework": "5.7.*",
         "laravel/tinker": "^1.0",
+        "ramsey/uuid": "^3.8",
         "vlucas/phpdotenv": "~2.2"
     },
     "require-dev": {

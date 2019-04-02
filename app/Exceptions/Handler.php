@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -45,6 +46,22 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof AuthenticationException) {
+            return response([
+                'message' => 'Unauthorized.'
+            ], 401);
+        } elseif ($exception instanceof ModelNotFoundException) {
+            return response([
+                'message' => 'Data tidak ditemukan.'
+            ], 404);
+        } elseif ($exception instanceOf HttpException) {
+            $status = $exception->getStatusCode();
+            $message = $exception->getMessage();
+            return response([
+                'message' => $message
+            ], $status);
+        }
+
         return parent::render($request, $exception);
     }
 }
